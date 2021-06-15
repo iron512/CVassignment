@@ -9,13 +9,14 @@ import utility as ut
 import setup
 
 #check if an argument is passed
-if len(sys.argv) != 4:	
-	print("\nError found:",ut.red("Incorrect arguments."),"\nTerminating.\n\nRun using this command:\n\n\t",ut.grn("python3 pipeline.py <video_file> <average> <mode>\n"))
+if len(sys.argv) != 5:	
+	print("\nError found:",ut.red("Incorrect arguments."),"\nTerminating.\n\nRun using this command:\n\n\t",ut.grn("python3 pipeline.py <video_file> <average> <mode> <debug>\n"))
 	sys.exit(1)
 
 video = sys.argv[1]
 avg = sys.argv[2]
 mode = sys.argv[3]
+debug = int(sys.argv[4])
 
 check, cap = setup.loadCapture(video)
 average_back = cv2.imread(avg,cv2.IMREAD_GRAYSCALE)
@@ -49,6 +50,9 @@ height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
 i = 0
 past = []
 
+fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+out = cv2.VideoWriter("./output/detector.mp4", fourcc, 25.0, (width,height))
+
 while True:
 	ret, frame = cap.read()
 	if ret:
@@ -60,7 +64,9 @@ while True:
 		ret3, back_sub_threshold = cv2.threshold(back_sub,25,255,cv2.THRESH_BINARY) 
 		back_sub_threshold = cv2.erode(back_sub_threshold,kernel2)
 		back_sub_threshold = cv2.dilate(back_sub_threshold,kernel3Cross)
-		cv2.imshow('back_sub',back_sub_threshold)
+		
+		if debug == 1:
+			cv2.imshow('back_sub',back_sub_threshold)
 	
 		if i>25:
 			foreground25 = past.pop(0)
@@ -70,12 +76,15 @@ while True:
 
 			fore25_sub_threshold = cv2.erode(fore25_sub_threshold,kernel2)
 			fore25_sub_threshold = cv2.dilate(fore25_sub_threshold,kernel4)
-			cv2.imshow('foreground_combo',fore25_sub_threshold)
+
+			if debug == 1:
+				cv2.imshow('foreground_combo',fore25_sub_threshold)
 
 			back_bil = np.bitwise_and(billboard_back,back_sub_threshold)
 			#back_bil = np.bitwise_and(back_bil,fore25_sub_threshold)
 			#back_bil = cv2.dilate(back_bil,kernel3Cross)
-			cv2.imshow('back_bil',back_bil)
+			if debug == 1:
+				cv2.imshow('back_bil',back_bil)
 
 
 			contours,hierarchy = cv2.findContours(back_bil, 1, 2)
@@ -90,10 +99,18 @@ while True:
 						color = (0,0,255)
 					else:
 						color = (0,255,0)
+		
 					cv2.rectangle(frame,(x,y),(x+w,y+h),color,2)
 
-		cv2.imshow("test",frame)
+		out.write(frame)
+		if debug >= 2:
+			cv2.imshow("boxed",frame)
+
 		cv2.waitKey(1)		
 		i=i+1
 	else:
 		break
+
+out.release()
+cap.release()
+cv2.destroyAllWindows()

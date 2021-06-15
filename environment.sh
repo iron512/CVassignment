@@ -24,10 +24,12 @@ if ! [[ -d "./ball_possession/CMakeFiles" ]]; then
 	cd ..
 fi
 
-. virtual/bin/activate
-echo "running preprocessor. enhancing video..."
-python3 preprocessor.py $VID_PATH 0 
-echo "running background generator..."
-python3 generate_background.py "${VID_PATH//".mp4"}_contrast.mp4" 2
-echo "done"
-deactivate
+if [[ -d "virtual" ]]; then
+	. virtual/bin/activate
+	echo "running preprocessor. enhancing video..."
+	python3 preprocessor.py $VID_PATH 0 
+	echo "running background generator..."
+	python3 generate_background.py "${VID_PATH//".mp4"}_contrast.mp4" 2
+	echo "done"
+	deactivate
+fi
