@@ -1,0 +1,6 @@
+cmake_minimum_required(VERSION 2.8)
+project( SecondAssignment )
+find_package( OpenCV REQUIRED )
+include_directories( ${OpenCV_INCLUDE_DIRS} )
+add_executable( ball_poss ball_possession.cpp )
+target_link_libraries( ball_poss ${OpenCV_LIBS} )

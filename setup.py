@@ -10,8 +10,7 @@ import numpy as np
 import utility as ut
 
 #This file contains 3 function, for preparing the video to further processes.
-#As described in the report, this setup phase can be executed just once, in order
-#to save time.
+#In the end, just two will be used, b
 
 #LOADCAPTURE: verifies the integrity of the video passed as parameter, 
 #opening and returning the videocapture object (if the operation was successful)
@@ -32,7 +31,7 @@ def loadCapture(videopath):
 #SPLITCAPTURE: Waiting each time for the video to be loaded can be tedious as
 #the framerate is costant. The video gets splitted and saved as images, in order to
 #allow the loading of just these.
-def splitCapture(capture, step = 1, write = False, waiting_time = 1):
+def splitCapture(capture, step = 1, write = False, debug = True, waiting_time = 1):
 	if write:
 		Path("./images").mkdir(parents=True, exist_ok=True)
 	video = []
@@ -43,8 +42,8 @@ def splitCapture(capture, step = 1, write = False, waiting_time = 1):
 		if ret:
 			if i % step == 0:
 				video.append(frame)
-
-			cv2.imshow('frame', frame)
+			if debug == 1:
+				cv2.imshow('frame', frame)
 			if write:
 				cv2.imwrite("./images/colored"+str(i)+".png", frame)
 			cv2.waitKey(waiting_time)
