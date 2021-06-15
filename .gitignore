@@ -1,4 +1,4 @@
 virtual/
 __pycache__/
-output/*
-sources/*
+output/
+sources/
