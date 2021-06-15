@@ -1,4 +1,6 @@
 virtual/
 __pycache__/
 output/
-sources/
+sources/*.mp4
+sources/*.png
+soruces/*.jpg

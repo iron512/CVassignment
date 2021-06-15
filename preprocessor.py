@@ -62,4 +62,8 @@ out_contrast.release()
 if debug == 1:
 	print("Total Frames: " + str(count))
 
+f = open("frames.txt", "w")
+f.write(str(count))
+f.close()
+
 cv2.destroyAllWindows()
