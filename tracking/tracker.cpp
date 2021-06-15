@@ -17,7 +17,6 @@ int main(int argc, char const *argv[]) {
 
 	Mat frame;
 	VideoCapture cap;
-	VideoWriter outputVideo;      
 
 	int tracker_count = 3;
 	Ptr<Tracker> trackers[] = {TrackerCSRT::create(),TrackerCSRT::create(),TrackerCSRT::create()};
@@ -41,17 +40,12 @@ int main(int argc, char const *argv[]) {
 
 	if (!cap.isOpened())
 		return -2;
-
-	Size S = Size((int) cap.get(CAP_PROP_FRAME_WIDTH),(int) cap.get(CAP_PROP_FRAME_HEIGHT));
-    outputVideo.open("../output/tracker.mp4", static_cast<int>(cap.get(CAP_PROP_FOURCC)), cap.get(CAP_PROP_FPS), S, true);
-
+	
 	Rect2i roi[] = {Rect2i(stoi(x),stoi(y),stoi(width),stoi(height)),
 					Rect2i(stoi(x)-stoi(shift),stoi(y),stoi(width),stoi(height)),
 					Rect2i(stoi(x)+stoi(shift),stoi(y),stoi(width),stoi(height))};
 
 	cap >> frame;
-    outputVideo << frame;
-
 	vector<Point2i> trackedpoints = vector<Point2i>();
 	trackedpoints.push_back((roi[0].br() + roi[0].tl())*0.5);
 
@@ -68,10 +62,6 @@ int main(int argc, char const *argv[]) {
 	while(true){
 		count += 1;
 		cap >> frame;
-
-        if (frame.empty())
-            break;
-
 		Point2i centers[] = {Point2i(0,0),Point2i(0,0),Point2i(0,0)};
 
 		for (int i = 0; i < tracker_count; ++i){
@@ -161,7 +151,6 @@ int main(int argc, char const *argv[]) {
 			CV_RGB(255, 255, 255), //font color
 			1);
 
-    	outputVideo << frame;
 		if (debug >= 1)
 			imshow("tracker",frame);
 
