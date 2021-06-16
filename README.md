@@ -38,3 +38,5 @@ chmod +x ./launch.sh
 ```
 ./launch.sh
 ```
+
+*Please take not that the timing is referred on the test I run on my computer, which mount a 7th-gen i7 7700HQ and a GTX1050m*
