@@ -15,3 +15,26 @@ The second assignment is the practical one. The input is a brief video of the Aq
 This `README.md` includes a guide to set up the environment, but the description of the complete pipeline is found in the second report `report/Report_SecondAssignment.pdf`
 
 ### Setup
+
+0) **Prerequisites**: Have `python` installed, `opencv` (for C++) and `cmake`. This should be the only non standard packages for any \*nix like OS, if they are not, please let me know.
+
+1) Clone the repository
+```
+git clone https://github.com/iron512/CVassignment
+```
+2) Copy the video, which is not uploaded in the repo inside the `sources` folder.
+3) Add the execution command on the `bash` scripts (might require sudo permissions).
+```
+chmod +x ./environment.sh
+```
+```
+chmod +x ./launch.sh
+```
+4) Set up the environment (~10 min)
+```
+./environment.sh
+```
+5) Launch the modules that take care of the tasks (~4 min)
+```
+./launch.sh
+```
