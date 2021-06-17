@@ -81,7 +81,7 @@ int main(int argc, char const *argv[]) {
             }            
         }
         int wht = 127;
-        string holder = "unknown";
+        string holder = "Unknown";
 
         if (whiteSum>(blackSum*1.10) && count > 400) {
             wht = 255;

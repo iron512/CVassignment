@@ -14,6 +14,10 @@ The second assignment is the practical one. The input is a brief video of the Aq
 
 This `README.md` includes a guide to set up the environment, but the description of the complete pipeline is found in the second report `report/Report_SecondAssignment.pdf`
 
+### Architecture
+
+![Pipeline](./report/pipeline.png)
+
 ### Setup
 
 0) **Prerequisites**: Have `python` installed, `opencv` (for C++) and `cmake`. This should be the only non standard packages for any \*nix like OS, if they are not, please let me know.

@@ -62,8 +62,8 @@ while True:
 
 		back_sub = cv2.absdiff(average_back, frame_gray)
 		ret3, back_sub_threshold = cv2.threshold(back_sub,25,255,cv2.THRESH_BINARY) 
-		back_sub_threshold = cv2.erode(back_sub_threshold,kernel2)
-		back_sub_threshold = cv2.dilate(back_sub_threshold,kernel3Cross)
+		#back_sub_threshold = cv2.erode(back_sub_threshold,kernel2)
+		#back_sub_threshold = cv2.dilate(back_sub_threshold,kernel3Cross)
 		
 		if debug == 1:
 			cv2.imshow('back_sub',back_sub_threshold)
@@ -74,15 +74,13 @@ while True:
 			fore25_sub = cv2.absdiff(foreground25, frame_gray)
 			ret4, fore25_sub_threshold = cv2.threshold(fore25_sub,30,255,cv2.THRESH_BINARY) 			
 
-			fore25_sub_threshold = cv2.erode(fore25_sub_threshold,kernel2)
-			fore25_sub_threshold = cv2.dilate(fore25_sub_threshold,kernel4)
+			#fore25_sub_threshold = cv2.erode(fore25_sub_threshold,kernel2)
+			#fore25_sub_threshold = cv2.dilate(fore25_sub_threshold,kernel4)
 
 			if debug == 1:
 				cv2.imshow('foreground_combo',fore25_sub_threshold)
 
 			back_bil = np.bitwise_and(billboard_back,back_sub_threshold)
-			#back_bil = np.bitwise_and(back_bil,fore25_sub_threshold)
-			#back_bil = cv2.dilate(back_bil,kernel3Cross)
 			if debug == 1:
 				cv2.imshow('back_bil',back_bil)
 
