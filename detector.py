@@ -66,11 +66,11 @@ while True:
 		for cnt in contours:
 			x,y,w,h = cv2.boundingRect(cnt)
 			
-			if w*h > 1000 and w*1.2<h:
+			if w*h > 970 and w*1.2<h:
 				color = (255,255,255)
 				cv2.rectangle(frame,(x,y),(x+w,y+h),color,2)
 				ppl+=1
-			elif w*h > 1000 and w<h:
+			elif w*h > 970 and w<h:
 				color = (127,127,127)	
 				cv2.rectangle(frame,(x,y),(x+w,y+h),color,2)
 				ppl+=1		

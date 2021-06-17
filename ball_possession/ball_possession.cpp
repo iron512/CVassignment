@@ -114,7 +114,7 @@ int main(int argc, char const *argv[]) {
         outputVideo << frame;
         imshow("basket",frame);
 
-        waitKey(1)
+        waitKey(1);
     }
 
     return 0;
