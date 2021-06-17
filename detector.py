@@ -75,7 +75,8 @@ while True:
 			ret4, fore25_sub_threshold = cv2.threshold(fore25_sub,30,255,cv2.THRESH_BINARY) 			
 
 			#fore25_sub_threshold = cv2.erode(fore25_sub_threshold,kernel2)
-			#fore25_sub_threshold = cv2.dilate(fore25_sub_threshold,kernel4)
+			#
+			fore25_sub_threshold = cv2.dilate(fore25_sub_threshold,kernel4)
 
 			if debug == 1:
 				cv2.imshow('foreground_combo',fore25_sub_threshold)
